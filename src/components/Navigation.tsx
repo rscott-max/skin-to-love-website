@@ -60,7 +60,7 @@ export function Navigation() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between py-6 lg:py-8">
+          <div className="flex items-center justify-between py-6 lg:py-8 relative">
             {/* Left Navigation Links — Desktop */}
             <div className="hidden lg:flex items-center gap-12 flex-1">
               {/* Your Concerns Dropdown */}
@@ -127,7 +127,7 @@ export function Navigation() {
             </div>
 
             {/* Centered Logo */}
-            <Link href="/" className="flex-shrink-0 mx-8 lg:mx-12">
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 z-10">
               <div className={`transition-all duration-500 ${scrolled ? "w-14 h-14" : "w-[88px] h-[88px]"}`}>
                 <Image
                   src="https://skintolovecommunity.co.uk/images/Skin-to-Love-Logo.png"
