@@ -59,7 +59,7 @@ function Hero() {
             {/* Eyebrow with ornament */}
             <div className="hero-subtitle flex items-center gap-3 mb-8">
               <div className="w-8 h-[1px] bg-gradient-to-r from-gold to-gold-light" />
-              <p className="accent-font text-gold-light text-lg italic tracking-wide">
+              <p className="text-gold-light text-[11px] uppercase tracking-[0.3em] font-medium">
                 Medically-led dermatology &amp; aesthetics
               </p>
             </div>
@@ -80,13 +80,13 @@ function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="hero-cta flex flex-col sm:flex-row gap-4">
-              <Link href="/book" className="btn-primary">
+            <div className="hero-cta flex flex-col sm:flex-row gap-5">
+              <Link href="/book" className="inline-flex items-center gap-3 px-10 py-4 border border-gold/60 text-cream text-xs font-medium uppercase tracking-[0.2em] hover:bg-gold/10 hover:border-gold transition-all duration-500">
                 <span>Book Your Consultation</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={14} />
               </Link>
-              <a href="tel:01727837429" className="btn-secondary">
-                <Phone size={16} />
+              <a href="tel:01727837429" className="inline-flex items-center gap-3 px-8 py-4 border border-cream/20 text-cream/70 text-xs font-medium uppercase tracking-[0.2em] hover:border-cream/40 hover:text-cream transition-all duration-500">
+                <Phone size={14} />
                 <span>01727 837 429</span>
               </a>
             </div>
@@ -154,7 +154,7 @@ function TrustBar() {
    ═══════════════════════════════════════════════════════ */
 function EmpathySection() {
   return (
-    <section className="py-24 lg:py-36 bg-mesh relative overflow-hidden">
+    <section className="py-32 lg:py-44 bg-mesh relative overflow-hidden">
       {/* Decorative ring */}
       <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-64 h-64 border border-gold/[0.06] rounded-full hidden lg:block" />
       <div className="absolute -right-24 top-1/2 -translate-y-1/2 w-48 h-48 border border-gold/[0.04] rounded-full hidden lg:block" />
@@ -262,7 +262,7 @@ function VideoSection() {
    ═══════════════════════════════════════════════════════ */
 function ZeroCommission() {
   return (
-    <section className="py-24 lg:py-36 bg-cream-dark relative overflow-hidden">
+    <section className="py-32 lg:py-44 bg-cream-dark relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Left — content */}
@@ -389,7 +389,7 @@ function RestedEffect() {
   ];
 
   return (
-    <section className="py-24 lg:py-36 bg-warm-white relative overflow-hidden">
+    <section className="py-32 lg:py-44 bg-warm-white relative overflow-hidden">
       {/* Rested Effect texture overlay */}
       <div className="absolute inset-0 z-0 opacity-[0.04]">
         <Image
@@ -472,7 +472,7 @@ function Testimonials() {
   ];
 
   return (
-    <section className="py-24 lg:py-36 bg-warm-white relative">
+    <section className="py-32 lg:py-44 bg-warm-white relative">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal className="text-center mb-16">
           <div className="gold-divider-center mb-6" />
@@ -549,7 +549,7 @@ function ConcernsGrid() {
   ];
 
   return (
-    <section className="py-24 lg:py-36 bg-gradient-navy relative overflow-hidden grain-overlay">
+    <section className="py-32 lg:py-44 bg-gradient-navy relative overflow-hidden grain-overlay">
       {/* Decorative glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gold/[0.03] rounded-full blur-[150px] pointer-events-none" />
 
@@ -574,7 +574,7 @@ function ConcernsGrid() {
                 <h3 className="font-heading text-cream text-xl font-semibold group-hover:text-gold-light transition-colors duration-300">
                   {item.title}
                 </h3>
-                <ArrowRight size={16} className="text-cream/20 group-hover:text-gold-light group-hover:translate-x-1 transition-all duration-300 shrink-0 mt-1.5" />
+                <ArrowRight size={14} className="text-cream/20 group-hover:text-gold-light group-hover:translate-x-1 transition-all duration-300 shrink-0 mt-1.5" />
               </div>
               <p className="text-cream/40 text-sm leading-relaxed group-hover:text-cream/60 transition-colors duration-300">
                 {item.description}
@@ -592,7 +592,7 @@ function ConcernsGrid() {
    ═══════════════════════════════════════════════════════ */
 function TheDifference() {
   return (
-    <section className="py-24 lg:py-36 bg-cream-dark relative overflow-hidden">
+    <section className="py-32 lg:py-44 bg-cream-dark relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <ScrollReveal variant="left">
@@ -653,7 +653,7 @@ function TheDifference() {
    ═══════════════════════════════════════════════════════ */
 function CTASection() {
   return (
-    <section className="relative py-24 lg:py-36 overflow-hidden">
+    <section className="relative py-32 lg:py-44 overflow-hidden">
       {/* Background image with heavy overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -689,11 +689,11 @@ function CTASection() {
             redeemable against any treatment.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/book" className="btn-primary">
+            <Link href="/book" className="inline-flex items-center gap-3 px-10 py-4 border border-gold/60 text-cream text-xs font-medium uppercase tracking-[0.2em] hover:bg-gold/10 hover:border-gold transition-all duration-500">
               <span>Book Your Consultation</span>
-              <ArrowRight size={16} />
+              <ArrowRight size={14} />
             </Link>
-            <Link href="/approach/your-first-visit" className="btn-secondary">
+            <Link href="/approach/your-first-visit" className="inline-flex items-center gap-3 px-8 py-4 border border-cream/20 text-cream/70 text-xs font-medium uppercase tracking-[0.2em] hover:border-cream/40 hover:text-cream transition-all duration-500">
               <span>What to Expect at Your First Visit</span>
             </Link>
           </div>
