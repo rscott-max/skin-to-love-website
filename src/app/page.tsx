@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Shield,
   Star,
@@ -12,22 +13,44 @@ import {
   Sparkles,
   Eye,
   Leaf,
+  Play,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
+/* Image base URL */
+const IMG = "https://skintolovecommunity.co.uk/images";
+
 /* ═══════════════════════════════════════════════════════
-   HERO — Cinematic, layered, animated
+   HERO — Cinematic with hero image background
    ═══════════════════════════════════════════════════════ */
 function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-gradient-hero overflow-hidden grain-overlay">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Full-bleed hero background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={`${IMG}/Skin-to-Love-Hero.jpg`}
+          alt="The Skin to Love Clinic — premium dermatology and aesthetics"
+          fill
+          className="object-cover object-top"
+          priority
+          sizes="100vw"
+        />
+        {/* Dark cinematic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/95 via-navy/85 to-navy/60" />
+        {/* Bottom vignette */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-navy-dark to-transparent" />
+      </div>
+
+      {/* Subtle grain */}
+      <div className="absolute inset-0 z-[1] grain-overlay pointer-events-none" />
+
       {/* Decorative radial glow */}
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-gold/[0.03] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none z-[1]" />
 
       {/* Subtle geometric accent */}
-      <div className="absolute top-20 right-20 w-32 h-32 border border-gold/[0.06] rotate-45 hidden lg:block" />
-      <div className="absolute bottom-32 right-40 w-20 h-20 border border-gold/[0.04] rotate-12 hidden lg:block" />
+      <div className="absolute top-20 right-20 w-32 h-32 border border-gold/[0.08] rotate-45 hidden lg:block z-[1]" />
+      <div className="absolute bottom-32 right-40 w-20 h-20 border border-gold/[0.06] rotate-12 hidden lg:block z-[1]" />
 
       <div className="max-w-7xl mx-auto px-6 py-24 lg:py-32 relative z-10 w-full">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -89,9 +112,6 @@ function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy-dark/50 to-transparent pointer-events-none" />
     </section>
   );
 }
@@ -179,7 +199,66 @@ function EmpathySection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ZERO-COMMISSION — Split layout with visual hierarchy
+   VIDEO SECTION — Cinematic promo video
+   ═══════════════════════════════════════════════════════ */
+function VideoSection() {
+  return (
+    <section className="relative bg-navy overflow-hidden">
+      {/* Top divider line */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent z-10" />
+
+      <div className="max-w-7xl mx-auto px-6 py-24 lg:py-32">
+        <ScrollReveal className="text-center mb-14">
+          <p className="accent-font text-gold-light text-xl italic mb-4">See the clinic</p>
+          <h2 className="font-heading text-cream display-lg font-semibold mb-5 text-balance">
+            Where Clinical Excellence Meets Calm
+          </h2>
+          <p className="text-cream/40 max-w-xl mx-auto leading-relaxed">
+            Step inside The Skin to Love Clinic. A CQC-registered, medically-led
+            practice designed around your comfort — and built on trust.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={200}>
+          <div className="relative max-w-4xl mx-auto video-container">
+            {/* Decorative frame */}
+            <div className="absolute -inset-3 border border-gold/10 pointer-events-none z-10" />
+            <div className="absolute -inset-1 border border-gold/5 pointer-events-none z-10" />
+
+            {/* Video */}
+            <div className="relative aspect-video bg-navy-dark overflow-hidden">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+                poster={`${IMG}/Skin-to-Love-Hero.jpg`}
+              >
+                <source src={`${IMG}/Skin-to-Love-Promo.mp4`} type="video/mp4" />
+              </video>
+
+              {/* Subtle vignette over video */}
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-navy/10 pointer-events-none" />
+            </div>
+
+            {/* Play indicator */}
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 bg-navy/60 backdrop-blur-sm px-4 py-2 border border-cream/10">
+              <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
+              <span className="text-cream/60 text-xs tracking-wider uppercase">Playing</span>
+            </div>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      {/* Bottom divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent z-10" />
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   ZERO-COMMISSION — Split layout with Jane & Kerri image
    ═══════════════════════════════════════════════════════ */
 function ZeroCommission() {
   return (
@@ -225,9 +304,24 @@ function ZeroCommission() {
             </div>
           </ScrollReveal>
 
-          {/* Right — Premium feature cards */}
+          {/* Right — Clinic image + feature cards */}
           <ScrollReveal variant="right">
             <div className="space-y-6">
+              {/* Jane & Kerri image */}
+              <div className="relative overflow-hidden mb-8">
+                <div className="absolute -inset-1 border border-gold/10 pointer-events-none z-10" />
+                <Image
+                  src={`${IMG}/front-of-house-full.png`}
+                  alt="Jane and Kerri — your front-of-house team at The Skin to Love Clinic"
+                  width={1024}
+                  height={662}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cream-dark/80 to-transparent pointer-events-none" />
+              </div>
+
+              {/* Feature cards below image */}
               {[
                 {
                   icon: HeartHandshake,
@@ -268,7 +362,7 @@ function ZeroCommission() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   THE RESTED EFFECT — Visual storytelling section
+   THE RESTED EFFECT — Visual storytelling with texture
    ═══════════════════════════════════════════════════════ */
 function RestedEffect() {
   const pillars = [
@@ -296,10 +390,22 @@ function RestedEffect() {
 
   return (
     <section className="py-24 lg:py-36 bg-warm-white relative overflow-hidden">
-      {/* Decorative background */}
+      {/* Rested Effect texture overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.04]">
+        <Image
+          src={`${IMG}/rested-effect-texture.png`}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Top line accent */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-warm-gray to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <ScrollReveal className="text-center mb-20">
           <div className="gold-divider-center mb-6" />
           <p className="accent-font text-gold text-xl italic mb-4">Our philosophy</p>
@@ -414,37 +520,31 @@ function ConcernsGrid() {
       title: "I Look Tired",
       description: "Volume loss, skin laxity, and dullness that make you look older than you feel.",
       href: "/concerns/i-look-tired",
-      accent: "from-gold/20 to-transparent",
     },
     {
       title: "My Skin Has Changed",
       description: "Pigmentation, melasma, rosacea, or acne scarring that affects your confidence.",
       href: "/concerns/my-skin-has-changed",
-      accent: "from-blush/20 to-transparent",
     },
     {
       title: "Lines & Wrinkles",
       description: "Fine lines, expression lines, or deeper folds that you want to soften naturally.",
       href: "/concerns/lines-and-wrinkles",
-      accent: "from-sage/20 to-transparent",
     },
     {
       title: "Body Confidence",
       description: "Stubborn fat, loose skin, or muscle tone that diet and exercise can\u2019t reach.",
       href: "/concerns/body-confidence",
-      accent: "from-gold-muted/20 to-transparent",
     },
     {
       title: "I Want to Feel Confident",
       description: "A comprehensive rejuvenation journey tailored entirely to you.",
       href: "/concerns/confidence",
-      accent: "from-gold-light/20 to-transparent",
     },
     {
       title: "Skin Health Check",
       description: "Moles, skin lesions, or dermatological concerns that need expert assessment.",
       href: "/concerns/skin-health-check",
-      accent: "from-cream/10 to-transparent",
     },
   ];
 
@@ -488,7 +588,7 @@ function ConcernsGrid() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   THE DIFFERENCE — Why we're not a beauty salon
+   THE DIFFERENCE — With clinic front-of-house image
    ═══════════════════════════════════════════════════════ */
 function TheDifference() {
   return (
@@ -510,10 +610,23 @@ function TheDifference() {
               standards as a private Harley Street dermatology practice — because
               that&rsquo;s exactly what we are, just in St Albans.
             </p>
+
+            {/* Clinic exterior image */}
+            <div className="relative overflow-hidden mt-8">
+              <div className="absolute -inset-1 border border-gold/10 pointer-events-none z-10" />
+              <Image
+                src={`${IMG}/front-of-house.png`}
+                alt="The Skin to Love Clinic — 13-15 Chequer Street, St Albans"
+                width={800}
+                height={520}
+                className="w-full h-auto"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
           </ScrollReveal>
 
           <ScrollReveal variant="right">
-            <div className="space-y-6">
+            <div className="space-y-6 lg:pt-16">
               {[
                 "CQC-registered and inspected — rated Good in all areas",
                 "Save Face accredited — an independent verification of safety and quality",
@@ -536,13 +649,30 @@ function TheDifference() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   CTA SECTION — Premium, cinematic
+   CTA SECTION — Premium with background image
    ═══════════════════════════════════════════════════════ */
 function CTASection() {
   return (
-    <section className="py-24 lg:py-36 bg-gradient-hero relative overflow-hidden grain-overlay">
+    <section className="relative py-24 lg:py-36 overflow-hidden">
+      {/* Background image with heavy overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={`${IMG}/Skin-to-Love-Hero.jpg`}
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-navy/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/50 via-transparent to-navy-dark/50" />
+      </div>
+
+      {/* Grain */}
+      <div className="absolute inset-0 z-[1] grain-overlay pointer-events-none" />
+
       {/* Glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none z-[1]" />
 
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
         <ScrollReveal>
@@ -595,6 +725,7 @@ export default function Home() {
       <Hero />
       <TrustBar />
       <EmpathySection />
+      <VideoSection />
       <RestedEffect />
       <ZeroCommission />
       <Testimonials />
