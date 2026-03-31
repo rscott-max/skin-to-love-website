@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown, MapPin } from "lucide-react";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 
 const concerns = [
   { label: "I Look Tired", href: "/concerns/i-look-tired", desc: "Volume loss, skin laxity, dullness" },
@@ -27,231 +28,272 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      {/* Top bar */}
-      <div className="bg-navy text-cream/70 text-[13px] py-2.5 hidden lg:block border-b border-cream/[0.06]">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-gold font-medium tracking-[0.15em] text-[11px] uppercase">
-              CQC Registered
-            </span>
+      {/* Top Utility Bar */}
+      <div className="bg-navy border-b border-cream/[0.06] text-cream/60 text-[11px] tracking-[0.2em] uppercase hidden lg:block">
+        <div className="max-w-7xl mx-auto px-6 py-2.5 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-gold/80 font-medium">CQC Registered</span>
             <span className="text-cream/20">&bull;</span>
-            <span className="text-gold font-medium tracking-[0.15em] text-[11px] uppercase">
-              Save Face Accredited
-            </span>
+            <span className="text-gold/80 font-medium">Save Face Accredited</span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="tel:01727837429" className="flex items-center gap-2 hover:text-gold-light transition-colors duration-300">
-              <Phone size={12} />
-              01727 837 429
-            </a>
-            <span className="text-cream/15">|</span>
-            <span className="flex items-center gap-1.5 text-cream/50">
-              <MapPin size={12} />
-              13-15 Chequer Street, St Albans, AL1 3YJ
-            </span>
+            <a href="tel:01727837429" className="hover:text-gold transition-colors duration-300">01727 837 429</a>
+            <span className="text-cream/20">|</span>
+            <span className="text-cream/40">13-15 Chequer Street, St Albans</span>
           </div>
         </div>
       </div>
 
-      {/* Main nav — glass-morphism on scroll */}
+      {/* Main Navigation */}
       <nav
-        className={`sticky top-0 z-50 transition-all duration-500 ${
+        className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "glass border-b border-warm-gray/30 shadow-[0_4px_30px_rgba(0,0,0,0.04)]"
-            : "bg-warm-white/95 backdrop-blur-sm border-b border-warm-gray/50"
+            ? "backdrop-blur-md bg-cream/95 shadow-sm border-b border-navy/5"
+            : "bg-cream border-b border-navy/10"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20 lg:h-[72px]">
-            {/* Logo */}
-            <Link href="/" className="flex flex-col group">
-              <span className="font-heading text-navy text-xl lg:text-[22px] font-semibold tracking-tight group-hover:text-gold transition-colors duration-300">
-                The Skin to Love
-              </span>
-              <span className="text-charcoal-light text-[10px] tracking-[0.25em] uppercase font-light">
-                Clinic &bull; St Albans
-              </span>
-            </Link>
-
-            {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-0.5">
-              {/* Your Concerns */}
+          <div className="flex items-center justify-between py-6 lg:py-8">
+            {/* Left Navigation Links — Desktop */}
+            <div className="hidden lg:flex items-center gap-12 flex-1">
+              {/* Your Concerns Dropdown */}
               <div
                 className="relative"
                 onMouseEnter={() => setActiveDropdown("concerns")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button className="px-4 py-2.5 text-[13px] font-medium text-charcoal hover:text-navy transition-colors duration-300 flex items-center gap-1.5 tracking-wide">
+                <button className="text-navy text-xs font-medium uppercase tracking-[0.2em] flex items-center gap-2 hover:opacity-60 transition-opacity">
                   Your Concerns
-                  <ChevronDown size={13} className={`transition-transform duration-300 ${activeDropdown === "concerns" ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${activeDropdown === "concerns" ? "rotate-180" : ""}`}
+                  />
                 </button>
-                <div
-                  className={`absolute top-full left-0 w-[340px] bg-warm-white border border-warm-gray/40 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] py-2 transition-all duration-300 origin-top ${
-                    activeDropdown === "concerns"
-                      ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-                  }`}
-                >
-                  {concerns.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-5 py-3.5 hover:bg-cream/80 transition-colors duration-200 group"
-                    >
-                      <span className="block text-[13px] font-medium text-navy group-hover:text-gold transition-colors duration-200">{item.label}</span>
-                      <span className="block text-[11px] text-charcoal-light mt-0.5">{item.desc}</span>
-                    </Link>
-                  ))}
-                </div>
+
+                {/* Dropdown Menu */}
+                {activeDropdown === "concerns" && (
+                  <div className="absolute left-0 mt-2 w-64 bg-white border border-navy/10 shadow-xl py-2 z-50">
+                    {concerns.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-6 py-4 hover:bg-navy/5 transition-colors first:rounded-t last:rounded-b group"
+                      >
+                        <span className="block text-navy text-xs font-medium uppercase tracking-[0.15em] group-hover:opacity-80">{item.label}</span>
+                        <span className="block text-charcoal-light text-[11px] mt-1">{item.desc}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Our Approach */}
+              {/* Our Approach Dropdown */}
               <div
                 className="relative"
                 onMouseEnter={() => setActiveDropdown("approach")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button className="px-4 py-2.5 text-[13px] font-medium text-charcoal hover:text-navy transition-colors duration-300 flex items-center gap-1.5 tracking-wide">
+                <button className="text-navy text-xs font-medium uppercase tracking-[0.2em] flex items-center gap-2 hover:opacity-60 transition-opacity">
                   Our Approach
-                  <ChevronDown size={13} className={`transition-transform duration-300 ${activeDropdown === "approach" ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${activeDropdown === "approach" ? "rotate-180" : ""}`}
+                  />
                 </button>
-                <div
-                  className={`absolute top-full left-0 w-[340px] bg-warm-white border border-warm-gray/40 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] py-2 transition-all duration-300 origin-top ${
-                    activeDropdown === "approach"
-                      ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-                  }`}
-                >
-                  {approach.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-5 py-3.5 hover:bg-cream/80 transition-colors duration-200 group"
-                    >
-                      <span className="block text-[13px] font-medium text-navy group-hover:text-gold transition-colors duration-200">{item.label}</span>
-                      <span className="block text-[11px] text-charcoal-light mt-0.5">{item.desc}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
 
+                {/* Dropdown Menu */}
+                {activeDropdown === "approach" && (
+                  <div className="absolute left-0 mt-2 w-64 bg-white border border-navy/10 shadow-xl py-2 z-50">
+                    {approach.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-6 py-4 hover:bg-navy/5 transition-colors first:rounded-t last:rounded-b group"
+                      >
+                        <span className="block text-navy text-xs font-medium uppercase tracking-[0.15em] group-hover:opacity-80">{item.label}</span>
+                        <span className="block text-charcoal-light text-[11px] mt-1">{item.desc}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Centered Logo */}
+            <Link href="/" className="flex-shrink-0 mx-8 lg:mx-12">
+              <div className={`transition-all duration-500 ${scrolled ? "w-14 h-14" : "w-[88px] h-[88px]"}`}>
+                <Image
+                  src="https://skintolovecommunity.co.uk/images/Skin-to-Love-Logo.png"
+                  alt="Skin to Love — Clinic, St Albans"
+                  width={176}
+                  height={176}
+                  priority
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </Link>
+
+            {/* Right Navigation Links — Desktop */}
+            <div className="hidden lg:flex items-center gap-12 flex-1 justify-end">
               <Link
                 href="/treatments"
-                className="px-4 py-2.5 text-[13px] font-medium text-charcoal hover:text-navy transition-colors duration-300 tracking-wide"
+                className="text-navy text-xs font-medium uppercase tracking-[0.2em] hover:opacity-60 transition-opacity"
               >
                 Treatments
               </Link>
 
               <Link
                 href="/journal"
-                className="px-4 py-2.5 text-[13px] font-medium text-charcoal hover:text-navy transition-colors duration-300 tracking-wide"
+                className="text-navy text-xs font-medium uppercase tracking-[0.2em] hover:opacity-60 transition-opacity"
               >
                 Journal
               </Link>
 
-              {/* CTA */}
-              <Link
-                href="/book"
-                className="ml-4 px-6 py-2.5 bg-gradient-to-r from-gold to-gold-muted text-navy text-[13px] font-semibold tracking-wide hover:shadow-[0_4px_20px_-4px_rgba(184,149,106,0.4)] hover:-translate-y-[1px] transition-all duration-300"
-              >
-                Book a Consultation
+              {/* Book a Consultation CTA — Outlined Style */}
+              <Link href="/book">
+                <button className="text-navy text-xs font-medium uppercase tracking-[0.2em] border border-navy px-6 py-3 hover:bg-navy hover:text-cream transition-colors duration-300">
+                  Book a Consultation
+                </button>
               </Link>
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 text-navy hover:text-gold transition-colors duration-300"
+              className="lg:hidden text-navy hover:opacity-60 transition-opacity p-2"
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span
+                  className={`block h-0.5 bg-navy transition-all ${
+                    mobileOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
+                />
+                <span
+                  className={`block h-0.5 bg-navy transition-all ${
+                    mobileOpen ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`block h-0.5 bg-navy transition-all ${
+                    mobileOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
+                />
+              </div>
             </button>
           </div>
-        </div>
 
-        {/* Mobile menu — refined */}
-        <div
-          className={`lg:hidden bg-warm-white border-t border-warm-gray/40 overflow-hidden transition-all duration-500 ${
-            mobileOpen ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="px-6 py-6 space-y-6 overflow-y-auto max-h-[80vh]">
-            <a
-              href="tel:01727837429"
-              className="flex items-center gap-2 text-navy font-medium text-sm"
-            >
-              <Phone size={16} className="text-gold" />
-              01727 837 429
-            </a>
-
-            <div className="gold-divider" />
-
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-gold font-medium mb-3">
-                Your Concerns
-              </p>
-              <div className="space-y-1">
-                {concerns.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block py-2.5 text-sm text-charcoal hover:text-navy hover:pl-2 transition-all duration-300"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+          {/* Mobile Menu */}
+          {mobileOpen && (
+            <div className="lg:hidden border-t border-navy/10 bg-cream px-6 py-6 space-y-6 pb-6">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12">
+                  <Image
+                    src="https://skintolovecommunity.co.uk/images/Skin-to-Love-Logo.png"
+                    alt="Skin to Love Clinic"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="gold-divider" />
-
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-gold font-medium mb-3">
-                Our Approach
-              </p>
-              <div className="space-y-1">
-                {approach.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block py-2.5 text-sm text-charcoal hover:text-navy hover:pl-2 transition-all duration-300"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <div>
+                <button
+                  onClick={() =>
+                    setActiveDropdown(
+                      activeDropdown === "concerns" ? null : "concerns"
+                    )
+                  }
+                  className="w-full text-left text-navy text-xs font-medium uppercase tracking-[0.2em] flex items-center justify-between hover:opacity-60 transition-opacity pb-3"
+                >
+                  Your Concerns
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${
+                      activeDropdown === "concerns" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {activeDropdown === "concerns" && (
+                  <div className="space-y-3 pl-4 mt-3">
+                    {concerns.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block text-navy text-xs uppercase tracking-[0.15em] hover:opacity-60 transition-opacity"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
+
+              <div>
+                <button
+                  onClick={() =>
+                    setActiveDropdown(
+                      activeDropdown === "approach" ? null : "approach"
+                    )
+                  }
+                  className="w-full text-left text-navy text-xs font-medium uppercase tracking-[0.2em] flex items-center justify-between hover:opacity-60 transition-opacity pb-3"
+                >
+                  Our Approach
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${
+                      activeDropdown === "approach" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {activeDropdown === "approach" && (
+                  <div className="space-y-3 pl-4 mt-3">
+                    {approach.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block text-navy text-xs uppercase tracking-[0.15em] hover:opacity-60 transition-opacity"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/treatments"
+                className="block text-navy text-xs font-medium uppercase tracking-[0.2em] hover:opacity-60 transition-opacity"
+                onClick={() => setMobileOpen(false)}
+              >
+                Treatments
+              </Link>
+
+              <Link
+                href="/journal"
+                className="block text-navy text-xs font-medium uppercase tracking-[0.2em] hover:opacity-60 transition-opacity"
+                onClick={() => setMobileOpen(false)}
+              >
+                Journal
+              </Link>
+
+              <Link href="/book" onClick={() => setMobileOpen(false)}>
+                <button className="w-full text-navy text-xs font-medium uppercase tracking-[0.2em] border border-navy px-6 py-3 hover:bg-navy hover:text-cream transition-colors duration-300">
+                  Book a Consultation
+                </button>
+              </Link>
             </div>
-
-            <div className="gold-divider" />
-
-            <Link href="/treatments" className="block py-2.5 text-sm font-medium text-charcoal hover:text-navy" onClick={() => setMobileOpen(false)}>
-              Treatments
-            </Link>
-            <Link href="/journal" className="block py-2.5 text-sm font-medium text-charcoal hover:text-navy" onClick={() => setMobileOpen(false)}>
-              Journal
-            </Link>
-
-            <Link
-              href="/book"
-              className="block w-full text-center py-4 bg-gradient-to-r from-gold to-gold-muted text-navy text-sm font-semibold tracking-wide"
-              onClick={() => setMobileOpen(false)}
-            >
-              Book a Consultation
-            </Link>
-
-            <p className="text-[10px] text-charcoal-light text-center tracking-wide">
-              CQC Registered &bull; Save Face Accredited &bull; Est. 2013
-            </p>
-          </div>
+          )}
         </div>
       </nav>
     </>
