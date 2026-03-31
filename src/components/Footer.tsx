@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 
 export function Footer() {
@@ -15,12 +16,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <h3 className="font-heading text-cream text-2xl font-semibold mb-1 tracking-tight">
-              The Skin to Love
-            </h3>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-gold mb-8">
-              Clinic &bull; St Albans
-            </p>
+            <div className="w-20 h-20 mb-6 invert brightness-200">
+              <Image
+                src="https://skintolovecommunity.co.uk/images/Skin-to-Love-Logo.png"
+                alt="Skin to Love — Clinic, St Albans"
+                width={160}
+                height={160}
+                className="w-full h-full object-contain"
+              />
+            </div>
             <p className="text-sm leading-relaxed text-cream/50 mb-8">
               CQC-registered, medically-led dermatology and aesthetics.
               Restoring your natural vitality since 2013.
